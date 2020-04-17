@@ -1,0 +1,659 @@
+<section class="container">
+  <form [formGroup]="registerForm">
+    <div class="shell-wrapper-header">
+      <div class="row align-items-center">
+        <div class="col-lg-3">
+          <img alt="company_logo" class="img-logo" src="/../../../assets/image/HDFC_Bank_Logo.jpg">
+        </div>
+        <div class="col-lg-6">
+          <h3 style="margin-left:70px;" class="mb-3">
+            <h1 style="margin-top:20px;"><strong>VENDOR ORGANISATION REGISTRATION</strong></h1>
+            <div style="margin-left:190px;" class="divider-primary"></div>
+          </h3>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="shell-wrapper-container">
+      <section class="my-3">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card mat-elevation-z3 border-0">
+              <div class="card-header">
+                <div class="d-flex align-items-center">
+
+                  <div class="icon icon-shape icon-shape-primary rounded-circle mr-3">
+                    <mat-icon>info</mat-icon>
+                  </div>
+
+                  <h3 style="margin-top:15px;" class="text-capitalize">Instructions</h3>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12">
+                    <h3>INVITED BY: SUPER ADMIN -superadmin@cormsquare.com</h3>
+                  </div>
+                  <div class="col-12">
+                    <h4><strong><i>"This portal is used by HDFC and any of its group entities for on-boarding the
+                          vendors
+                          from whome HDFC or any of its group entities may avail services"</i></strong></h4>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+
+      <section class="my-3">
+        <div class="row">
+          <div class="col-md-9">
+            <div class="card mat-elevation-z3 border-0">
+              <div class="card-header">
+                <div class="d-flex align-items-center">
+
+                  <div class="icon icon-shape icon-shape-primary rounded-circle mr-3">
+                    <mat-icon>assessment</mat-icon>
+                  </div>
+
+                  <h3 style="margin-top:15px;" class="text-capitalize">Comapany Info</h3>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <mat-form-field class="col-md-6">
+                    <mat-label>Company Name</mat-label>
+                    <input matInput type="text" formControlName="name" placeholder="Company Name" required />
+                  </mat-form-field>
+                  <mat-form-field class="col-md-6">
+                    <mat-label>Comapny Alias</mat-label>
+                    <input matInput type="text" formControlName="contactPerson" placeholder="Comapny Alias" required />
+                  </mat-form-field>
+
+                  <mat-form-field class="col-md-3">
+                    <mat-label>Company Type</mat-label>
+                    <mat-select placeholder="Comapny type" formControlName="companytype"
+                      (selectionChange)="SelectionComapny($event.value)" required>
+                      <mat-option *ngFor="let app of vendorStatus" [value]='app'> {{ app }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+
+
+                  <mat-form-field class="col-md-3">
+                    <mat-label>Business Nature</mat-label>
+                    <mat-select placeholder="Business Nature" formControlName="businessNature" required>
+                      <mat-option *ngFor="let app of Bnature" [value]='app'> {{ app }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <div class="col-md-3">
+                    <div class="row">
+                      <mat-form-field class="col">
+                        <mat-label>PAN Number</mat-label>
+                        <input matInput #pancardnum type="text" placeholder="PAN Number" minlength="10" maxlength="10"
+                          formControlName="panNumber" required />
+                        <mat-hint><strong>Ex:AAPPAAPP90</strong></mat-hint>
+                        <mat-hint align="end">{{pancardnum.value.length}}/10</mat-hint>
+                      </mat-form-field>
+
+                    </div>
+                  </div>
+
+                  <!-- <mat-form-field class="col-md-3">
+                    <mat-label>Currency</mat-label>
+                    <mat-select placeholder="Currency" formControlName="currency" required>
+                      <mat-option *ngFor="let app of Bnature" [value]='app'> {{ app }}</mat-option>
+                    </mat-select>
+                  </mat-form-field> -->
+                  <mat-form-field class="col-md-3">
+                    <mat-label>Currency</mat-label>
+                    <mat-select multiple placeholder="Currency" formControlName="currency"
+                      (selectionChange)="SelectionCurreny($event.value)" required>
+                      <mat-option [value]="cur" *ngFor="let cur of currency">
+                        {{ cur }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <mat-form-field *ngIf="propName" class="col-md-12">
+                    <mat-label>Proprietor Name</mat-label>
+                    <input matInput type="text" placeholder="Proprietor Name" formControlName="propreterName"
+                      required />
+                  </mat-form-field>
+
+                  <mat-form-field class="col-md-12">
+                    <mat-label>Description</mat-label>
+                    <input matInput type="text" placeholder="Description" formControlName="description" required />
+                  </mat-form-field>
+
+                  <mat-form-field class="col-md-12">
+                    <mat-label>Other Product/Service</mat-label>
+                    <input matInput type="text" placeholder="Other Product/Service" formControlName="otherservice"
+                      required />
+                  </mat-form-field>
+
+                  <mat-form-field class="col-6">
+                    <mat-label>Catalogue</mat-label>
+                    <mat-select multiple placeholder="catalog" formControlName="catlogue"
+                      (selectionChange)="SelectionCat($event.value)" required>
+                      <mat-option [value]="cat" *ngFor="let cat of catalog">
+                        {{ cat }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <mat-form-field class="col-6">
+                    <mat-label> Sub Catalogue</mat-label>
+                    <mat-select multiple placeholder="Sub Catalog" formControlName="subcatlogue"
+                      (selectionChange)="SelectionSCat($event.value)" required>
+                      <mat-option [value]="Scat" *ngFor="let Scat of subCatlog">
+                        {{ Scat }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <div style="margin-left:20px;" class="col-3">
+                    <div class="row my-2">
+                      <div class="row">
+                        <div class="col-11">
+                          <label id="example-radio-group-label"> Is GST Applicable</label>
+                        </div>
+                        <div class="col-7">
+                          <mat-radio-group aria-labelledby="example-radio-group-label"
+                            formControlName="isGstApplicable">
+                            <mat-radio-button value="yes"> Yes</mat-radio-button>
+                            <mat-radio-button value="no"> No</mat-radio-button>
+                          </mat-radio-group>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-4">
+                    <div class="row my-2">
+                      <div class="row">
+                        <div class="col-11">
+                          <label id="example-radio-group-label"> Are you a Composite Taxable Dealer</label>
+                        </div>
+                        <div class="col-7">
+                          <mat-radio-group aria-labelledby="example-radio-group-label"
+                            formControlName="composiTaxableDealer">
+                            <mat-radio-button value="yes"> Yes</mat-radio-button>
+                            <mat-radio-button value="no"> No</mat-radio-button>
+                          </mat-radio-group>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-4">
+                    <div class="row my-2">
+                      <div class="row">
+                        <div class="col-15">
+                          <label id="example-radio-group-label"> Are you Registered under MSME ACT 2006</label>
+                        </div>
+                        <div class="col-7">
+                          <mat-radio-group aria-labelledby="example-radio-group-label" (change)="registr($event)">
+                            <mat-radio-button value="yes"> Yes</mat-radio-button>
+                            <mat-radio-button value="no"> No</mat-radio-button>
+                          </mat-radio-group>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+                  <mat-form-field *ngIf="IsRegisteredUnderMSME" class="col-md-6">
+                    <mat-label>MSME Registration Number</mat-label>
+                    <input matInput type="text" placeholder="MSME Registration Number"
+                      formControlName="mMSMEregisterNumbaer" required />
+                  </mat-form-field>
+
+                  <mat-form-field *ngIf="IsRegisteredUnderMSME" class="col-md-6">
+                    <mat-label>Date of Registration</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="dateOfRegistration">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col-md-3">
+
+            <div class="card mat-elevation-z3 border-0">
+              <div class="card-header">
+                <div class="row">
+                  <div class="icon icon-shape icon-shape-primary rounded-circle mr-3">
+                    <mat-icon fas icon="file-upload"></mat-icon>
+                  </div>
+                  <div class="d-flex align-items-center">
+                    <h3 style="margin-top:5px;" class="text-capitalize">Comapany Logo</h3>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <button style="margin-left:40px;" mat-raised-button color="primary">
+                  <mat-icon>add_a_photo</mat-icon> Add Logo
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <section class="my-3">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card mat-elevation-z3 border-0">
+              <div class="card-header">
+                <div class="d-flex align-items-center">
+                  <div class="icon icon-shape icon-shape-primary rounded-circle mr-3">
+                    <mat-icon>location_on</mat-icon>
+                  </div>
+                  <h3 style="margin-top:15px;" class="text-capitalize">Add Location</h3>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="row">
+
+                  <mat-form-field class="col-md-6">
+                    <mat-label>Please Enter Adress Line 1 </mat-label>
+                    <input matInput type="text" placeholder="Adress Line 1" formControlName="adress1" required />
+                  </mat-form-field>
+                  <mat-form-field class="col-md-6">
+                    <mat-label>Please Enter Adress Line 2 </mat-label>
+                    <input matInput type="text" placeholder="Adress Line 2" formControlName="adress2" required />
+                  </mat-form-field>
+
+                  <mat-form-field class="col-md-2">
+                    <mat-label>Location Type</mat-label>
+                    <mat-select placeholder="Location Type" formControlName="locationType" required>
+                      <mat-option *ngFor="let app of locationType" [value]='app'> {{ app }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+
+                  <mat-form-field class="col-md-2">
+                    <mat-label>Country</mat-label>
+                    <mat-select placeholder="Country" formControlName="country" required>
+                      <mat-option *ngFor="let con of country" [value]='con'> {{ con }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+
+                  <mat-form-field class="col-md-2">
+                    <mat-label>State</mat-label>
+                    <mat-select placeholder="State" formControlName="state" required>
+                      <mat-option *ngFor="let sta of state" [value]='sta'> {{ sta }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+
+                  <mat-form-field class="col-md-2">
+                    <mat-label>City </mat-label>
+                    <input matInput type="text" placeholder="City" formControlName="city" required />
+                  </mat-form-field>
+
+                  <mat-form-field class="col-md-2">
+                    <mat-label>Zip Code </mat-label>
+                    <input matInput type="number" placeholder="Zip Code" formControlName="zipCode" required />
+                  </mat-form-field>
+
+                  <mat-form-field class="col-md-2">
+                    <mat-label>GST Number </mat-label>
+                    <input matInput type="text" #gstnum placeholder="GST Number" minlength="15" maxlength="15"
+                      formControlName="gSTNumber" required />
+                    <mat-hint><strong>Ex. 24AAPAP00000A1M</strong></mat-hint>
+                    <mat-hint align="end">{{gstnum.value.length}}/15</mat-hint>
+                  </mat-form-field>
+
+                  <!-- <mat-form-field class="col-md-12">
+                  <mat-label>Bank Adress </mat-label>
+                  <input matInput type="text" placeholder="Bank Adress " required />
+                </mat-form-field> -->
+
+                  <!-- <button style="margin-left:450px;" mat-raised-button color="primary" ngSubmit>
+                  Save
+                </button>
+                <button style="margin-left:10px;" mat-stroked-button color="primary">
+                  Cancel
+                </button> -->
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="my-3">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card mat-elevation-z3 border-0">
+              <div class="card-header">
+                <div class="d-flex align-items-center">
+                  <div class="icon icon-shape icon-shape-primary rounded-circle mr-3">
+                    <mat-icon>account_balance</mat-icon>
+                  </div>
+                  <h3 style="margin-top:15px;" class="text-capitalize">Add Bank Details</h3>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="row">
+
+                  <mat-form-field class="col-md-2">
+                    <mat-label>Account Type</mat-label>
+                    <mat-select placeholder="Account Type" formControlName="accountType" required>
+                      <mat-option *ngFor="let acc of accountType" [value]='acc'> {{ acc }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <mat-form-field class="col-md-4">
+                    <mat-label>Account Number </mat-label>
+                    <input matInput type="number" placeholder="Account Number" formControlName="accNum" required />
+                  </mat-form-field>
+
+                  <mat-form-field class="col-md-2">
+                    <mat-label>IFSC </mat-label>
+                    <input matInput type="text" placeholder="IFSC" formControlName="bankCode" required />
+                  </mat-form-field>
+
+                  <mat-form-field class="col-md-2">
+                    <mat-label>Bank Name </mat-label>
+                    <input matInput type="text" placeholder="Bank Name" formControlName="bankName" required />
+                  </mat-form-field>
+
+                  <mat-form-field class="col-md-2">
+                    <mat-label>Account Holder Name </mat-label>
+                    <input matInput type="text" placeholder="Account Holder Name" formControlName="accountHolderName"
+                      required />
+                  </mat-form-field>
+
+                  <mat-form-field class="col-md-12">
+                    <mat-label>Bank Adress</mat-label>
+                    <input matInput type="text" placeholder="Bank Adress" formControlName="bankAdress" required />
+                  </mat-form-field>
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="my-3">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card mat-elevation-z3 border-0">
+              <div class="card-header">
+                <div class="d-flex align-items-center">
+                  <div class="icon icon-shape icon-shape-primary rounded-circle mr-3">
+                    <mat-icon>more</mat-icon>
+                  </div>
+                  <h3 style="margin-top:15px;" class="text-capitalize">Additional Informations</h3>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <mat-form-field class="col-md-12">
+                    <mat-label>MSME Registration Number:</mat-label>
+                    <input matInput type="text" placeholder="SME Registration Number" formControlName="mSMEREGISTNUm"
+                      required />
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div style="margin-left:10px;">
+        <h2>Upload Documents <h5>(Each Document Max size 5 MB)</h5>
+        </h2>
+      </div>
+
+      <section class="my-3">
+        <div class="row">
+          <div class="col-12">
+            <div class="card mat-elevation-z3 border-0">
+              <div class="card-body">
+
+                <mat-list>
+                  <mat-list-item class="col-md-12">
+                    <div>
+                      <h3><strong>#</strong></h3>
+                    </div>
+                    <div class="col-4">
+                      <h3> <strong>Document Type </strong></h3>
+                    </div>
+                    <div class="col-2">
+                      <h3> <strong>Mandatory </strong></h3>
+                    </div>
+                    <div class="col-3">
+                      <h3> <strong>Document Name(size) </strong></h3>
+                    </div>
+                    <div class="col-2">
+                      <h3> <strong>Actions </strong></h3>
+                    </div>
+                    <div class="col-1">
+                      <h3><strong>Save</strong></h3>
+                    </div>
+                  </mat-list-item>
+                  <mat-divider></mat-divider>
+                  <div *ngFor="let doc of document">
+                    <mat-list-item class="col-md-12">
+                      <div>{{doc.num}}</div>
+                      <div class="col-4">{{doc.DocumentType}}</div>
+                      <div class="col-2">{{doc.Mandaotory}}</div>
+                      <div class="col-2">{{doc.DocumentName}}</div>
+                      <div class="col-2">
+                        <button style="margin-left:60px;" mat-raised-button>
+                          <mat-icon> attach_file</mat-icon> Attach
+                        </button>
+                      </div>
+                      <div *ngIf="doc.download" class="col-1">
+                        <button style="margin-left:80px;" mat-raised-button>
+                          <mat-icon>save_alt</mat-icon>
+                        </button>
+                      </div>
+                    </mat-list-item>
+                    <mat-divider></mat-divider>
+                  </div>
+                </mat-list>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <div class="row">
+        <div class="col-6">
+          <section class="my-3">
+            <div class="row">
+              <div class="col-12">
+                <div class="card mat-elevation-z3 border-0">
+                  <div class="card-header">
+                    <div class="d-flex align-items-center">
+                      <div class="icon icon-shape icon-shape-primary rounded-circle mr-3">
+                        <mat-icon>account_circle</mat-icon>
+                      </div>
+                      <h3 style="margin-top:15px;" class="text-capitalize">Vendor Profile</h3>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="row">
+
+                      <mat-form-field class="col-md-12">
+                        <mat-label>Primary User Email</mat-label>
+                        <input matInput placeholder="Primary User Email" #modelmail name="email"
+                          formControlName="primaryUSerEmail"
+                          pattern="[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)*">
+                        <mat-error *ngIf="!modelmail.valid &&  modelmail.touched">
+                          Please Enter A Valid EmailId
+                        </mat-error>
+                        <!-- <input matInput type=" text" placeholder="Primary User Email"
+                          formControlName="primaryUSerEmail" required /> -->
+                      </mat-form-field>
+                      <mat-form-field class="col-md-6">
+                        <mat-label>First Name</mat-label>
+                        <input matInput type="text" placeholder="First Name" formControlName="firstName" required />
+                      </mat-form-field>
+                      <mat-form-field class="col-md-6">
+                        <mat-label>Last Name</mat-label>
+                        <input matInput type="text" placeholder="Last Name" formControlName="lastName" required />
+                      </mat-form-field>
+                      <mat-form-field class="col-md-6">
+                        <mat-label>Designation</mat-label>
+                        <input matInput type="text" placeholder="Designation" formControlName="designation" required />
+                      </mat-form-field>
+                      <mat-form-field class="col-6">
+                        <mat-label>Phone Number</mat-label>
+                        <mat-select multiple placeholder="Phone Number" formControlName="phoneNum" required>
+                          <mat-option [value]="num" *ngFor="let num of Pnum"
+                            (selectionChange)="SelectionNum($event.value)">
+                            {{ num }}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <mat-form-field class="col-md-6">
+                        <mat-label>Password</mat-label>
+                        <input matInput type="password" placeholder="Password" formControlName="password" required />
+                      </mat-form-field>
+
+                      <mat-form-field class="col-6">
+                        <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'"
+                          formControlName="confirmPass" required />
+                        <mat-icon matSuffix (click)="hide = !hide">{{
+                        hide ? "visibility_off" : "visibility"
+                      }}</mat-icon>
+                      </mat-form-field>
+                      <h5 style="margin-left:10px;">
+                        <font color="#6B6D6F">Password must contain at least 8 charecters, including uppercase,
+                          lowercase letters,
+                          special
+                          charecters and numbers.</font>
+                      </h5>
+
+                      <!-- <h5 style="margin-left:10px;">Password must contain at least 8 charecters, including uppercase,
+                        lowercase letters,
+                        special
+                        charecters and numbers.</h5> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <div class="col-6">
+          <section class="my-3">
+            <div class="row">
+              <div class="col-12">
+                <div class="card mat-elevation-z3 border-0">
+                  <div class="card-header">
+                    <div class="d-flex align-items-center">
+                      <div class="row">
+                        <div class="icon icon-shape icon-shape-primary rounded-circle mr-3">
+                          <mat-icon>person_add</mat-icon>
+                        </div>
+                        <h3 style="margin-top:5px;" class="text-capitalize">Add Additional Users</h3>
+                        <h4>Want to add more users from your organization to register? Invite them here</h4>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="row my-3">
+                      <div class="col-12">
+                        <mat-accordion formArrayName="inviteVendors">
+                          <mat-expansion-panel expanded *ngFor="let user of getInviteUser(registerForm); let i = index"
+                            [formGroupName]="i">
+                            <div class="row">
+                              <mat-form-field class="col-md-10">
+                                <mat-label>Please Enter User Email</mat-label>
+                                <input matInput type="text" placeholder="Please Enter User Email"
+                                  formControlName="userEmail">
+                              </mat-form-field>
+                              <div class="col-2">
+                                <button mat-icon-button (click)="delete(i)">
+                                  <mat-icon>delete</mat-icon>
+                                </button>
+                              </div>
+                            </div>
+                          </mat-expansion-panel>
+                        </mat-accordion>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12">
+                        <button style="margin-left:200px;" (click)="addUser()" mat-raised-button color="primary">
+                          <mat-icon>add</mat-icon>
+                          Invite Users
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <h4>
+            <font color="#6B6D6F">Please review all the sections before submission, Once you submit
+              your
+              application, we
+              will
+              contact you
+              shortly post approval of your details.</font>
+          </h4>
+        </div>
+        <div class="col-12">
+          <div class="row">
+            <div class="col">
+              <h4>
+                <mat-checkbox style="margin-right:10px;" id="myCheck" (click)="myFunction()">
+                  <font color="#6B6D6F">I have read, understood and accepted the information
+                    entered in the registration
+                    form.
+                  </font>
+                </mat-checkbox>
+              </h4>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="selected" class="col">
+          <h4>
+            <font color="red"><strong>Please select The Checkbox!!!</strong>
+            </font>
+          </h4>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="shell-wrapper-footer">
+      <button style="margin-left:900px;" mat-raised-button color="primary" (click)=onSubmit(registerForm.value)>
+        <mat-icon>done_all</mat-icon>
+        Submit
+      </button>
+      <button style="margin-left:10px;" mat-stroked-button color="primary">
+        Cancel
+      </button>
+    </div>
+
+
+  </form>
+</section>

@@ -1,0 +1,45 @@
+<section *ngIf="countryForm" class="container px-2">
+  <div class="page-header-editor">
+    <div class="page-header-title">
+      <div class="d-block">
+        <h4 class="mb-0">
+          {{ f.uid.value ? "Update Country" : "Create Country" }}
+        </h4>
+      </div>
+    </div>
+    <button type="button" mat-icon-button [routerLink]="['/masters/countries']">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+
+  <form [formGroup]="countryForm" (ngSubmit)="submitForm()">
+    <div class="row my-2">
+      <mat-form-field class="col-md-4 ">
+        <input matInput placeholder="Name" formControlName="name" required />
+      </mat-form-field>
+    </div>
+
+    <div class="row my-2">
+      <mat-form-field class="col-4 ">
+        <input matInput placeholder="Code" formControlName="code" required />
+      </mat-form-field>
+    </div>
+
+    <mat-radio-group formControlName="status" aria-label="Select an option" class="d-block">
+      <mat-radio-button value="InActive">In Active</mat-radio-button>
+      <mat-radio-button value="Active">Active</mat-radio-button>
+    </mat-radio-group>
+
+    <div class="row my-2 mt-4">
+      <div class="offset-md-1">
+        <button mat-raised-button color="primary" type="submit" [disabled]="!countryForm.valid">
+          {{ f.uid.value ? "Update" : "Create" }}
+        </button>
+        <button mat-stroked-button class="ml-1" color="primary" [routerLink]="['/masters/countries']">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </form>
+</section>

@@ -1,0 +1,64 @@
+<section *ngIf="inviteForm" class="container">
+  <form [formGroup]="inviteForm" (ngSubmit)="onsubmit(inviteForm.value)">
+    <div class="shell-wrapper">
+      <div class="shell-wrapper-header">
+        <h4 class="shell-header-title">
+          Invite Vendor
+        </h4>
+        <button type="button" mat-icon-button [routerLink]="['/vendors']">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="shell-wrapper-container">
+        <section class="my-3">
+          <div class="card mat-elevation-z3 border-0">
+            <div class="card-body">
+              <div class="row">
+                <mat-form-field class="col-md-12">
+                  <mat-label>Vendor Name</mat-label>
+                  <input matInput type="text" placeholder="Vendor Name" formControlName="name" required />
+                </mat-form-field>
+                <mat-form-field class="col-md-6">
+                  <mat-label>Email</mat-label>
+                  <input matInput type="text" placeholder="Email" formControlName="email" required />
+                </mat-form-field>
+                <mat-form-field class="col-md-6">
+                  <mat-label>Vendor Organisation Type</mat-label>
+                  <input matInput type="text" placeholder="Supplier Organisation Type"
+                    formControlName="vendorOrganisationType" required />
+                </mat-form-field>
+                <mat-form-field class="col-md-6">
+                  <mat-label>First Project Name</mat-label>
+                  <input matInput type="text" placeholder="First Prject Name" formControlName="project" required />
+                </mat-form-field>
+                <mat-form-field class="col-md-6">
+                  <mat-label>Location Code</mat-label>
+                  <input matInput type="text" placeholder="Location Code" formControlName="projectLocationCode"
+                    required />
+                </mat-form-field>
+
+                <div class="col-md-11">
+                  <label id="example-radio-group-label"> Vendor Type</label>
+                </div>
+                <div class="col-7">
+                  <mat-radio-group aria-labelledby="example-radio-group-label" formControlName="vendorType">
+                    <mat-radio-button value="Regular">Regular</mat-radio-button>
+                    <mat-radio-button value="One Time">One Time</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <div class="shell-wrapper-footer">
+          <button mat-raised-button color="primary" [disabled]="!inviteForm.valid" ngSubmit>
+            Submit
+          </button>
+          <button mat-stroked-button color="primary" [routerLink]="['/vendors/vendor-registration']">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</section>

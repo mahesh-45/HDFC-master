@@ -1,0 +1,26 @@
+@import "~@angular/material/theming";
+
+@include mat-core();
+// hue. Available color palettes: https://material.io/design/color/
+$eproc-app-primary: mat-palette($mat-blue, 700);
+$eproc-app-accent: mat-palette($mat-pink, 500);
+$eproc-app-warn: mat-palette($mat-red, 500);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$eproc-app-theme: mat-light-theme(
+  $eproc-app-primary,
+  $eproc-app-accent,
+  $eproc-app-warn
+);
+
+@include angular-material-theme($eproc-app-theme);
+
+.dark-theme {
+  $primary-dark: mat-palette($mat-pink, 700);
+  $accent-dark: mat-palette($mat-green);
+  $warn-dark: mat-palette($mat-red);
+
+  $theme-dark: mat-dark-theme($primary-dark, $accent-dark, $warn-dark);
+
+  @include angular-material-theme($theme-dark);
+}

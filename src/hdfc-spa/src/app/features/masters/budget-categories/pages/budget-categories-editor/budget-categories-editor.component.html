@@ -1,0 +1,53 @@
+<section *ngIf="budgetCategoryForm" class="container">
+  <form [formGroup]="budgetCategoryForm" (ngSubmit)="onSubmit(budgetCategoryForm.value)">
+    <div class="shell-wrapper">
+      <div class="shell-wrapper-header">
+        <h4 class="shell-header-title">{{
+          f.uid.value === ''
+          ? 'Create Budget Category'
+          : 'Update Budget Category'
+          }}</h4>
+        <button type="button" mat-icon-button [routerLink]="[ '/masters/budget-categories']">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="shell-wrapper-container">
+        <form [formGroup]="budgetCategoryForm">
+          <div class="row">
+            <mat-form-field class="col-4">
+              <input matInput placeholder="Name" formControlName="name" required>
+              <mat-error>
+                Please Provide Budget Category Name.
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-4">
+              <input matInput placeholder="Code" formControlName="code" required>
+              <mat-error>
+                Please provide Budget Category Code
+              </mat-error>
+            </mat-form-field>
+            <div class="col-4">
+              <mat-radio-group formControlName="status" aria-label="Select an option" class="d-block">
+                <mat-radio-button value="InActive">In Active</mat-radio-button>
+                <mat-radio-button value="Active">Active</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+        </form>
+      </div>
+
+
+      <div class="shell-wrapper-footer">
+        <button mat-raised-button color="primary" type="submit" [disabled]="!budgetCategoryForm.valid">
+          {{
+            f.uid.value === ''
+          ? 'Create'
+          : 'Update'
+          }}
+        </button>
+        <button mat-stroked-button color="primary" [routerLink]="[ '/masters/budget-categories']">Cancel</button>
+      </div>
+    </div>
+  </form>
+</section>

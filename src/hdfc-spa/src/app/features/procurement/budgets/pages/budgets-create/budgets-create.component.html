@@ -1,0 +1,387 @@
+<form [formGroup]="budgetForm">
+  <section>
+    <div class="page-header-editor">
+      <div class="page-header-title">
+        <div class="d-block">
+          <h4 class="mb-0">Create Budget</h4>
+        </div>
+      </div>
+      <button type="button" mat-icon-button [routerLink]="['/procurement/budgets']">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="row my-3">
+      <div class="col-12">
+        <mat-horizontal-stepper #stepper>
+          <mat-step>
+            <ng-template matStepLabel>Select Budget</ng-template>
+            <mat-card class="bg-gradient-info">
+              <div class="d-flex align-items-center text-white">
+                <div>
+                  <div class="icon icon-shape">
+                    <mat-icon>info</mat-icon>
+                  </div>
+                </div>
+                <p class="description ml-3 mb-0">
+                  Please select Budget to proceed to next step.
+                </p>
+              </div>
+            </mat-card>
+            <mat-card class="py-3 mt-3">
+              <button mat-raised-button color="primary" (click)="tree.treeControl.expandAll()">
+                <!--ExpandAll--> Expand All
+              </button>&nbsp;&nbsp;
+              <button mat-raised-button color="primary" (click)="tree.treeControl.collapseAll()">
+                <!--CollapseAll--> Collapse All
+              </button>
+              <mat-tree #tree [dataSource]="dataSource" [treeControl]="treeControl">
+                <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding
+                  (click)="setCategory(node)" style="margin-left: 40px !important;">
+                  <button type="button" mat-stroked-button color="primary" matStepperNext>
+                    {{ node.name }}
+                  </button>
+                </mat-tree-node>
+                <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+                  <button type="button" mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.name">
+                    <mat-icon class="mat-icon-rtl-mirror">
+                      {{
+                          treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'
+                        }}
+                    </mat-icon>
+                  </button>
+                  <button type="button" mat-stroked-button color="primary" (click)="setCategory(node)" matStepperNext>
+                    {{ node.name }}
+                  </button>
+                </mat-tree-node>
+              </mat-tree>
+            </mat-card>
+          </mat-step>
+          <mat-step [stepControl]="budgetForm">
+            <ng-template matStepLabel>Fill in details</ng-template>
+            <mat-card class="py-3">
+              <div class="row">
+                <mat-form-field class="col-lg-4 col-md-3 col-sm-6 col-6">
+                  <input matInput placeholder="Budget Head" formControlName="budgetHeadName" name="budgetHeadName"
+                    required readonly />
+                  <mat-icon matSuffix (click)="goBack(stepper)" matTooltip="change BudgetHead" style="cursor:pointer;">
+                    edit
+                  </mat-icon>
+                  <mat-error>
+                    Please Select BudgetHead Name
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="col-lg-4 col-md-4 col-sm-6 col-6">
+                  <input matInput formControlName="name" placeholder="Budget Name" required>
+                  <mat-error>
+                    Please enter Budget Name
+                  </mat-error>
+                </mat-form-field>
+                <!-- <mat-form-field class="col-lg-4 col-md-4 col-sm-6 col-6">
+                  <input matInput formControlName="code" placeholder="Budget Code">
+                  <mat-error>
+                    Please enter Code
+                  </mat-error>
+                </mat-form-field> -->
+                <mat-form-field class="col-lg-4 col-md-4 col-sm-6 col-6">
+                  <mat-select formControlName="budgetCategoryId" placeholder="Budget Catergory" required>
+                    <mat-option [value]="budgetCategory.id" *ngFor="let budgetCategory of budgetCategories">
+                      {{ budgetCategory.name }}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error>
+                    Please select BudgetCategory
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="row">
+                <mat-form-field class="col-8">
+                  <input matInput placeholder="Description" formControlName="description" required />
+                  <mat-error>
+                    Please select Description
+                  </mat-error>
+                </mat-form-field>
+
+                <div class="col-lg-4">
+                  <mat-label>Select Budget Type</mat-label>
+                  <mat-radio-group aria-label="Select an option" class="d-block" formControlName="budgetType">
+                    <mat-radio-button class="example-radio-button" *ngFor="let budgetType of transactionTypes"
+                      [value]="budgetType" (change)="setBudgetType(budgetType)">
+                      {{budgetType}}
+                    </mat-radio-button>
+                  </mat-radio-group>
+                </div>
+
+                <!-- </mat-form-field> -->
+                <mat-form-field class="col-lg-4 col-md-4 col-sm-6 col-6">
+                  <mat-select formControlName="currencyId" placeholder="Currency" required>
+                    <mat-option [value]="currency.id" *ngFor="let currency of currencies">{{ currency.name }}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error>
+                    Please Select Currency
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field class="col-lg-4 col-md-4 col-sm-6 col-6">
+                  <mat-select formControlName="departmentId" placeholder="Department" required>
+                    <mat-option [value]="department.id" *ngFor="let department of departments">{{ department.name }}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error>
+                    Please Select Department
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field class="col-4">
+                  <mat-select multiple formControlName="budgetCostCodes" name="budgetCostCodes"
+                    placeholder="Select CostCodes" [compareWith]="selectedCostCode"
+                    (selectionChange)="selectionCostCode($event.value)" required>
+                    <mat-option [value]="costCode" *ngFor="let costCode of costCodes">
+                      {{ costCode.name }}</mat-option>
+                  </mat-select>
+                  <mat-error>
+                    Please Select CostCode
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="row">
+                <mat-label class="ml-2"> <strong>Select Type of Transaction</strong> </mat-label>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-6">
+                  <mat-radio-group aria-label="Select an option" class="d-block" (change)="changeYear($event)">
+                    <mat-radio-button type="radio" name="filterType" value="Normal" [checked]=true>
+                      Normal
+                    </mat-radio-button>
+                    <mat-radio-button type="radio" name="filterType" value="Financial">
+                      Financial Year
+                    </mat-radio-button>
+                  </mat-radio-group>
+                  <mat-radio-group aria-label="Select an option" class="col-4" style="display: inline-grid">
+                  </mat-radio-group>
+                </div>
+              </div>
+
+              <div class="row">
+                <mat-form-field class="col-4">
+                  <input matInput [matDatepicker]="startDatepicker" (focus)="startDatepicker.open()"
+                    placeholder="Start Date" formControlName="startDate" required />
+                  <mat-datepicker-toggle matSuffix [for]="startDatepicker"></mat-datepicker-toggle>
+                  <mat-datepicker #startDatepicker></mat-datepicker>
+                  <mat-error>Please enter StartDate</mat-error>
+                </mat-form-field>
+                <mat-form-field class="col-4">
+                  <input matInput [matDatepicker]="endDatepicker" (focus)="endDatepicker.open()" placeholder="End Date"
+                    formControlName="endDate" required />
+                  <mat-datepicker-toggle matSuffix [for]=" endDatepicker"></mat-datepicker-toggle>
+                  <mat-datepicker #endDatepicker></mat-datepicker>
+                  <mat-error>Please enter EndDate</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="col-4">
+                  <input matInput [matDatepicker]="transactionDatepicker" (focus)="transactionDatepicker.open()"
+                    placeholder="Transaction Date" [formControl]="serializedDate" formControlName="transactionDate"
+                    [min]="currentDate" required />
+                  <mat-datepicker-toggle matSuffix [for]="transactionDatepicker"></mat-datepicker-toggle>
+                  <mat-datepicker #transactionDatepicker></mat-datepicker>
+                  <mat-error>Please enter TransactionDate</mat-error>
+                </mat-form-field>
+              </div>
+
+
+              <div class="row">
+                <mat-form-field class="col-4">
+                  <mat-label>Basic Amount</mat-label>
+                  <input matInput placeholder="0.00" formControlName="basicAmount" (keyup)="totalAmount()" appDecimal
+                    required />
+                  <mat-error>Please enter BasicAmount</mat-error>
+                </mat-form-field>
+                <mat-form-field class="col-4">
+                  <mat-label>Tax Amount</mat-label>
+                  <input matInput placeholder="0.00" formControlName="taxAmount" (keyup)="totalAmount()" appDecimal />
+                </mat-form-field>
+                <mat-form-field class="col-4">
+                  <mat-label>Total Amount</mat-label>
+                  <input matInput placeholder="0.00" formControlName="totalAmount" appDecimal readonly />
+                  <mat-error>Please enter TotalAmount</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="row">
+                <mat-form-field class="col-lg-4 col-md-4 col-sm-6 col-6">
+                  <mat-select formControlName="divisionId" placeholder="Select Division"
+                    (selectionChange)="onChangingDivision($event.value)" required>
+                    <mat-option [value]="division.id" *ngFor="let division of divisions">{{ division.name }}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error>Please select Division</mat-error>
+                </mat-form-field>
+                <mat-form-field class="col-lg-4 col-md-4 col-sm-6 col-6">
+                  <mat-select formControlName="subDivisionId" placeholder="SubDivision">
+                    <mat-option [value]="subDivision.id" *ngFor="let subDivision of subDivisions">{{ subDivision.name }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field class="col-4">
+                  <mat-select formControlName="personInChargeId" placeholder="Select Person In Charge">
+                    <mat-option [value]="personInCharge.id" *ngFor="let personInCharge of personInCharges">
+                      {{ personInCharge.email }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="row">
+                <mat-form-field class="col-12">
+                  <textarea matInput placeholder="Add Justification" formControlName="justification"
+                    required></textarea>
+                  <mat-error>Please Enter Justification</mat-error>
+                </mat-form-field>
+              </div>
+              <footer class="mat-stepper-footer">
+                <button mat-raised-button color="warn" matStepperPrevious>
+                  <mat-icon>arrow_back</mat-icon>
+                  Back
+                </button>
+                <button mat-raised-button color="primary" [disabled]="!budgetForm.valid" matStepperNext>
+                  Next
+                  <mat-icon>arrow_forward</mat-icon>
+                </button>
+              </footer>
+            </mat-card>
+          </mat-step>
+          <mat-step>
+            <ng-template matStepLabel>Add Spend Limits</ng-template>
+            <mat-card class="py-3">
+              <div formGroupName="budgetSpendLimits">
+                <div class="card mat-elevation-z3 border-0  my-3">
+                  <div class="card-body">
+                    <div class="row">
+                      <mat-form-field class="col-4">
+                        <input matInput [matDatepicker]="startDatepicker2" (focus)="startDatepicker2.open()"
+                          placeholder="Start Date" formControlName="startDate" />
+                        <mat-datepicker-toggle matSuffix [for]="startDatepicker2"></mat-datepicker-toggle>
+                        <mat-datepicker #startDatepicker2></mat-datepicker>
+                        <mat-error>
+                          Please enter StartDate
+                        </mat-error>
+                      </mat-form-field>
+                      <mat-form-field class="col-4">
+                        <input matInput [matDatepicker]="endDatepicker2" (focus)="endDatepicker2.open()"
+                          placeholder="End Date" formControlName="endDate" />
+                        <mat-datepicker-toggle matSuffix [for]="endDatepicker2"></mat-datepicker-toggle>
+                        <mat-datepicker #endDatepicker2></mat-datepicker>
+                        <mat-error>
+                          Please enter EndDate
+                        </mat-error>
+                      </mat-form-field>
+                      <mat-form-field class="col-4">
+                        <mat-label>Spend Limit</mat-label>
+                        <input matInput formControlName="spendLimit" placeholder="0.00" appDecimal>
+                        <mat-error>
+                          Please enter Spend Limit
+                        </mat-error>
+                      </mat-form-field>
+                      <mat-form-field class="col-12">
+                        <textarea matInput placeholder="Add Remarks" formControlName="remarks"></textarea>
+                        <mat-error>Please enter Remarks</mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="card-footer">
+                    <div class="row">
+                      <div class="col-lg-12 text-center">
+                        <button *ngIf="!updateBudgetSpendLimitbutton" mat-raised-button class="mr-2" color="primary"
+                          (click)="addSpendLimits()" [disabled]="!budgetSpendLimitValidation()">
+                          <mat-icon>add</mat-icon>Add SpendLimits
+                        </button>
+                        <button *ngIf="updateBudgetSpendLimitbutton" mat-raised-button class="mr-2" color="primary"
+                          (click)="updateSpendLimits()" [disabled]="!budgetSpendLimitValidation()">
+                          <mat-icon>add</mat-icon>
+                          Update SpendLimits
+                        </button>
+                        <button mat-raised-button color="warn" (click)="cancelSpendLimits()">
+                          <mat-icon>cancel</mat-icon>
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="dataSourceSpendLimit.data.length > 0">
+                  <div class="card-body">
+                    <div class="table-responsive mat-elevation-z3">
+                      <table mat-table matSort [dataSource]="dataSourceSpendLimit">
+                        <ng-container matColumnDef="ID">
+                          <th mat-header-cell *matHeaderCellDef>#</th>
+                          <td mat-cell *matCellDef="let element; let i = index">
+                            {{ i + 1 }}
+                          </td>
+                        </ng-container>
+                        <ng-container matColumnDef="StartDate">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                            StartDate
+                          </th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.startDate|date }}
+                          </td>
+                        </ng-container>
+                        <ng-container matColumnDef="EndDate">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                            EndDate
+                          </th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.endDate|date }}
+                          </td>
+                        </ng-container>
+                        <ng-container matColumnDef="SpendLimit">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                            SpendLimit
+                          </th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.spendLimit }}
+                          </td>
+                        </ng-container>
+                        <ng-container matColumnDef="Remarks">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                            Remarks
+                          </th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.remarks }}
+                          </td>
+                        </ng-container>
+                        <ng-container matColumnDef="Actions">
+                          <th mat-header-cell *matHeaderCellDef>
+                            Action
+                          </th>
+                          <td mat-cell *matCellDef="let element; let i = index">
+                            <button mat-icon-button matTooltip="edit" (click)="editSpendLimit(element, i)">
+                              <mat-icon>edit</mat-icon>
+                            </button>
+                            <button mat-icon-button matTooltip="edit" (click)="deleteBudgetSpendLimits(element, i)">
+                              <mat-icon>delete</mat-icon>
+                            </button>
+                          </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedSpendLimitColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedSpendLimitColumns"></tr>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </mat-card>
+
+            <footer class="mat-stepper-footer">
+              <button mat-raised-button color="warn" matStepperPrevious (click)="goBackToPrevious(stepper)">
+                <mat-icon>arrow_back</mat-icon>
+                Back
+              </button>
+              <button mat-raised-button color="primary" [disabled]="!budgetForm.valid" (click)="submitForm()">
+                <mat-icon>done_all</mat-icon>
+                Create
+              </button>
+            </footer>
+
+          </mat-step>
+        </mat-horizontal-stepper>
+      </div>
+    </div>
+  </section>
+</form>

@@ -1,0 +1,51 @@
+<mat-toolbar class="toolbar mat-elevation-z4">
+  <div>
+    <button mat-icon-button (click)="toggleSidenav.emit()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <img *ngIf="logo != null" class="img-fluid rounded" src="{{ logo }}" alt="Company Logo"
+      style="max-height: 40px; width:auto;" />
+  </div>
+  <!-- <h6 class=" description col-xl-auto"> Supply Chain Management System</h6> -->
+  <h6 class=" description col-xl-auto"> Dprocure </h6>
+  <div class="flex-grow-1">
+    <!-- <p _ngcontent-c11="" class="mb-0" style="padding-left: 10px"> SCM Business Process Automation</p> -->
+  </div>
+
+  <!-- <button mat-icon-button (click)="toggleTheme.emit()" matTooltip="Toggle theme">
+    <mat-icon>format_color_fill</mat-icon>
+  </button> -->
+  <a mat-icon-button *ngIf="isBuyer() && hasAdminRole()" (click)="openBottomSheet()" matTooltip="Organization Settings">
+    <mat-icon>settings</mat-icon>
+  </a>
+  <!-- User Profile -->
+  <div class="d-flex align-items-center">
+    <p class="description mb-0 ml-2">{{ userDisplayName }}</p>
+    <!-- <img *ngIf="!displayPictureUrl; else default" src="{{ displayPictureUrl }}" class="img-fluid rounded shadow ml-3"
+      alt="User Picture" style="max-height: 40px; width:auto; cursor: pointer;" [matMenuTriggerFor]="menu" />
+    <ng-template #default>
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>person</mat-icon>
+      </button>
+    </ng-template> -->
+
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>person</mat-icon>
+    </button>
+
+  </div>
+  <mat-menu class="mt-3" #menu="matMenu">
+    <button mat-menu-item (click)="viewProfile()">
+      <mat-icon>person</mat-icon>
+      <span>{{ isBuyer() ? 'User Profile' : 'My Users' }}</span>
+    </button>
+    <button mat-menu-item (click)="viewCompnayProfile()" hidden>
+      <mat-icon>domain</mat-icon>
+      <span>Company Profile</span>
+    </button>
+    <button mat-menu-item (click)="logout()">
+      <mat-icon>power_settings_new</mat-icon>
+      <span>Log Out</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>

@@ -1,0 +1,128 @@
+<style>
+  /* ::ng-deep virtual-scroller.selfScroll {
+    border: 1px solid rgb(209, 218, 223);
+  } */
+
+  ::ng-deep virtual-scroller.selfScroll.vertical {
+    height: calc(100vh - 30vh);
+  }
+
+  ::ng-deep virtual-scroller.selfScroll.horizontal {
+    width: 60vw;
+    height: 120px;
+  }
+</style>
+<section class="container">
+  <div class="page-header">
+    <div class="page-header-title">
+      <div class="d-block">
+        <h4 class="mb-0">Budgets</h4>
+        <small class="text-muted">{{resultsLength}} Entries</small>
+      </div>
+    </div>
+
+    <button class="mr-2" mat-raised-button color="primary" matTooltip="Create Budget" (click)="goToCreate()">
+      <mat-icon>add</mat-icon> Create
+    </button>
+  </div>
+  <div class="row my-2">
+    <div class="col-12">
+      <div class="d-flex">
+        <div class="input-group input-group-alternative">
+          <div class="input-group-prepend">
+            <span class="input-group-text" (click)="code.change()" style="cursor: pointer">
+              <mat-icon>search</mat-icon>
+            </span>
+          </div>
+          <input class="form-control" placeholder="Search by Budget Name or Code" type="text"
+            (change)="applyFilter($event)" #code />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <mat-accordion>
+        <!-- <virtual-scroller #scroll [items]="items" (end)="fetchMore($event)"> -->
+        <mat-expansion-panel class="mx-2" *ngFor="let item of data; let i = index">
+          <mat-expansion-panel-header>
+            <mat-panel-title style="width: 10%">
+              <div [ngSwitch]="item.budgetStatus">
+                <span class="badge badge-pill badge-success" *ngSwitchCase="'Active'">
+                  {{item.budgetStatus}}
+                </span>
+                <span class="badge badge-pill badge-danger" *ngSwitchCase="'Hold'">
+                  {{item.budgetStatus}}
+                </span>
+              </div>
+            </mat-panel-title>
+            <mat-panel-title style="width: 60%">
+              <div class="d-block">
+                <!-- <h5 class="text-primary mb-0">{{ item.referenceId }}</h5> -->
+                <h5 class="text-primary mb-0"> <strong>{{ item.referenceId }}</strong> </h5>
+              </div>
+            </mat-panel-title>
+            <mat-panel-title style="width: 30%">
+              <div class="d-block">
+                <span class="badge badge-lg badge-primary text-uppercase">
+                  {{ item.budgetType }}
+                </span>
+                <!-- <h5 class="text-primary mb-0">{{ item.budgetType }}</h5> -->
+              </div>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <ng-template matExpansionPanelContent>
+            <div class="row">
+              <div class="col-12">
+                <table class="table">
+                  <tbody>
+                    <tr>
+                      <td>Created By</td>
+                      <td>{{ item.createdByUser }}</td>
+                    </tr>
+                    <tr>
+                      <td>Budget Name</td>
+                      <td>{{ item.name }}</td>
+                    </tr>
+                    <tr>
+                      <td>Created Date</td>
+                      <td>{{ item.createdDate | utcDateFormat}}</td>
+                    </tr>
+                    <tr>
+                      <td>Start Date</td>
+                      <td>{{ item.startDate | dateFormat}}</td>
+                    </tr>
+                    <tr>
+                      <td>End Date</td>
+                      <td>{{ item.endDate | dateFormat}}</td>
+                    </tr>
+                    <tr>
+                      <td>Budget Amount</td>
+                      <td> <small class="text-danger"> {{item.currency}}</small> {{ item.totalAmount }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <mat-action-row>
+              <button type="button" mat-raised-button matTooltip="edit" (click)="goToEdit(item.uid)"
+                *ngIf="item.budgetStatus === 'Hold'">
+                Edit
+              </button>
+
+              <button type="button" mat-raised-button matTooltip="detail" (click)="goToDetail(item.uid)">
+                Details
+              </button>
+
+              <button type="button" mat-raised-button matTooltip="Hold" (click)="openholdBudgetConfirmationBox(item.id)"
+                *ngIf="item.budgetStatus !== 'Hold'">
+                Hold
+              </button>
+            </mat-action-row>
+          </ng-template>
+        </mat-expansion-panel>
+        <!-- </virtual-scroller> -->
+      </mat-accordion>
+    </div>
+  </div>
+</section>

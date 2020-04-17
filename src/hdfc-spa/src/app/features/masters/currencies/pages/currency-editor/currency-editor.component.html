@@ -1,0 +1,60 @@
+<style>
+  mat-form-field {
+    float: left;
+    width: 40%;
+    margin-right: 10%;
+  }
+
+  mat-radio-group {
+    position: static;
+    margin-top: 30px;
+  }
+
+</style>
+
+<div class="page-header-editor">
+  <div class="page-header-title">
+    <div class="d-block">
+      <h4 class="mb-0">
+        {{ f.uid.value ? "Update CurrencyForm" : "Create CurrencyForm" }}
+      </h4>
+    </div>
+  </div>
+  <button type="button" mat-icon-button [routerLink]="['/masters/currencies']">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<form [formGroup]="currencyForm" (ngSubmit)="submitForm()">
+
+  <mat-form-field class>
+    <input matInput placeholder="Code" formControlName="code" required>
+    <mat-error> Enter your Code </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class>
+    <input matInput placeholder="Name" formControlName="name" required>
+    <mat-error> Enter your Name </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class>
+    <input matInput placeholder="Description" formControlName="description" required>
+    <mat-error> Enter your Description </mat-error>
+  </mat-form-field>
+
+  <mat-radio-group formControlName="status" aria-label="Select an option" class="d-block">
+    <mat-label>Status : </mat-label>
+    <mat-radio-button value="InActive">Inactive</mat-radio-button>
+    <mat-radio-button value="Active">Active</mat-radio-button>
+  </mat-radio-group>
+  <br><br>
+  <div class="row my-2 mt-4">
+    <div class="offset-md-1">
+      <button mat-raised-button color="primary" type="submit" [disabled]="!currencyForm.valid">
+        {{currencyForm.value.uid ? "Update" : "Create" }}
+      </button>
+      <button mat-stroked-button class="ml-1" color="primary" [routerLink]="['/masters/currencies']">
+        Cancel
+      </button>
+    </div>
+  </div>
+</form>

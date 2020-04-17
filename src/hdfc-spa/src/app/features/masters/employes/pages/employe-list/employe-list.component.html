@@ -1,0 +1,98 @@
+<section class="container px-2">
+  <div class="page-header-editor">
+    <div class="page-header-title">
+      <div class="d-block">
+        <h4 class="mb-0">
+          Employees
+        </h4>
+      </div>
+    </div>
+    <button type="button" mat-raised-button color="primary" [routerLink]="['/masters/employees/create']">
+      Create
+    </button>
+  </div>
+  <div class="row my-2">
+    <div class="col-12">
+      <div class="d-flex">
+        <div class="input-group input-group-alternative">
+          <div class="input-group-prepend"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row my-2">
+    <div class="col-12">
+      <div class="d-flex">
+        <div class="input-group input-group-alternative">
+          <div class="input-group-prepend">
+            <span class="input-group-text" style="cursor: pointer;">
+              <mat-icon>search</mat-icon>
+            </span>
+          </div>
+          <input class="form-control" placeholder="Search by Country name or code" type="text"
+            (change)="applyFilter($event)" #code />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="example-container mat-elevation-z1">
+    <div class="example-loading-shade" *ngIf="isLoadingResults || isRateLimitReached">
+      <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+      <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
+        Unable to fetch data.
+      </div>
+    </div>
+
+    <div class="example-table-container">
+      <table mat-table [dataSource]="data" class="example-table" cdkDropList cdkDropListOrientation="horizontal" matSort
+        matSortActive="name" matSortDisableClear matSortDirection="desc">
+        <ng-container matColumnDef="firstName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header cdkDrag disableClear>
+            Name
+          </th>
+          <td mat-cell *matCellDef="let row">{{ row.firstName }}</td>
+        </ng-container>
+        <ng-container matColumnDef="employeeNumber">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header cdkDrag disableClear>
+            employeeNumber
+          </th>
+          <td mat-cell *matCellDef="let row">{{ row.employeeNumber }}</td>
+        </ng-container>
+        <ng-container matColumnDef="officialEmail">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header cdkDrag disableClear>
+            officialEmail
+          </th>
+          <td mat-cell *matCellDef="let row">{{ row.officialEmail }}</td>
+        </ng-container>
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header cdkDrag disableClear>
+            status
+          </th>
+          <td mat-cell *matCellDef="let row">{{ row.employeeStatus }}</td>
+        </ng-container>
+
+        <!-- Star Column -->
+
+        <ng-container matColumnDef="star">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let element">
+            <tr>
+              <button mat-icon-button aria-label="Button for edit" (click)="goToEditPage(element.uid)">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </tr>
+
+            <tr>
+              <button mat-icon-button aria-label="Button for edit" (click)="goTodetailPage(element.uid)">
+                <mat-icon>visibility</mat-icon>
+              </button>
+            </tr>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+  </div>
+</section>

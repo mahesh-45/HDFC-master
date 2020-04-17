@@ -1,0 +1,89 @@
+<section *ngIf="costCodeForm" class="container">
+  <form [formGroup]="costCodeForm" (ngSubmit)="submitForm()">
+    <div class="shell-wrapper">
+      <div class="shell-wrapper-header">
+        <h4 class="shell-header-title"> {{ c.uid.value ? "Update costCodeForm" : "Create Cost-Code" }}
+        </h4>
+        <button type="button" mat-icon-button [routerLink]="[ '/masters/cost-codes']">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="shell-wrapper-container">
+        <form [formGroup]="costCodeForm">
+          <mat-card class="py-3 mt-3">
+            <div class="row">
+              <mat-form-field class="col-4">
+                <input matInput name="CodeR" formControlName="Code" placeholder="Code" required>
+                <mat-error>
+                  Please Provide Code For Cost Code.
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="col-4">
+                <input matInput name="NameR" formControlName="Name" placeholder="Name" required>
+                <mat-error>
+                  Please provide Cost Code Name
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-form-field class="col-4">
+                <input matInput name="BHEmpCodeR" formControlName="Business_Head_Employee_Code"
+                  placeholder="Business Head Employee Code" required>
+                <mat-error>
+                  Please Provide Business Head Employee Code.
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="col-4">
+                <input matInput name="BHR" formControlName="Business_Head" placeholder="Business Head" required>
+                <mat-error>
+                  Please Provide Business Head Name
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-form-field class="col-4">
+                <input matInput name="ADEmpCodeR" formControlName="Accountant_Dept_Employee_Code"
+                  placeholder="Accountant Dept Employee Code" required>
+                <mat-error>
+                  Please Provide Accountant Dept Employee Code.
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="col-4">
+                <input matInput name="ADR" formControlName="Accountant_Dept" placeholder="Accountant Dept" required>
+                <mat-error>
+                  Please provide Account Department Name
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-form-field class="col-4">
+                <input matInput name="HeadR" formControlName="Head" placeholder="Head" required>
+                <mat-error>
+                  Please Provide Cost Code Head.
+                </mat-error>
+              </mat-form-field>
+              <div class="col-4">
+                <mat-radio-group formControlName="status" aria-label="Select an option" class="d-block">
+                  <mat-radio-button value="InActive">In Active</mat-radio-button>
+                  <mat-radio-button value="Active">Active</mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+          </mat-card>
+        </form>
+      </div>
+
+
+      <div class="shell-wrapper-footer">
+        <button mat-raised-button color="primary" type="submit" [disabled]="!costCodeForm.valid">
+          {{costCodeForm.value.uid ? "Update" : "Create" }}
+
+        </button>
+        <button mat-stroked-button color="primary" [routerLink]="[ '/masters/cost-codes']">Cancel</button>
+      </div>
+    </div>
+  </form>
+</section>

@@ -1,0 +1,428 @@
+<mat-nav-list>
+  <ng-container *ngIf="!isHelpDesk">
+    <a mat-list-item disableRipple role="listitem" [routerLink]="['/masters/countries']"
+      [routerLinkActive]="['link-active']" *ngIf="isEnabledModule('countries')">
+      <mat-icon matListIcon>language
+      </mat-icon>
+      <span matLine>Countries</span>
+    </a>
+    <a mat-list-item disableRipple role="listitem" [routerLink]="['/procurement/budgets']"
+      [routerLinkActive]="['link-active']" *ngIf="isEnabledModule('budgets')">
+      <mat-icon matListIcon>local_mall
+      </mat-icon>
+      <span matLine>Budgets</span>
+    </a>
+    <a mat-list-item disableRipple role="listitem" [routerLink]="['/masters/budget-heads']"
+      [routerLinkActive]="['link-active']" *ngIf="isEnabledModule('budget-heads')">
+      <mat-icon matListIcon>account_balance
+      </mat-icon>
+      <span matLine>Budget-Heads</span>
+    </a>
+
+
+
+    <a mat-list-item disableRipple role="listitem" [routerLink]="['/masters/budget-categories']"
+      [routerLinkActive]="['link-active']" *ngIf="isEnabledModule('budget-categories')">
+      <mat-icon matListIcon>category
+
+      </mat-icon>
+      <span matLine>Budget-Categories</span>
+    </a>
+    <a mat-list-item disableRipple role="listitem" [routerLink]="['/masters/vendors']"
+      [routerLinkActive]="['link-active']" *ngIf="isEnabledModule('vendor-master')">
+
+      <mat-icon matListIcon>group_add
+      </mat-icon>
+      <span matLine>Vendors</span>
+    </a>
+    <a mat-list-item disableRipple role="listitem" [routerLink]="['/masters/cost-codes']"
+      [routerLinkActive]="['link-active']" *ngIf="isEnabledModule('cost-codes')">
+      <mat-icon matListIcon>monetization_on
+
+      </mat-icon>
+      <span matLine>Cost-Codes</span>
+    </a>
+    <!-- <a mat-list-item disableRipple role="listitem" [routerLink]="['/masters/division']"
+      [routerLinkActive]="['link-active']" *ngIf="isEnabledModule('division')">
+      <mat-icon matListIcon>people
+
+      </mat-icon>
+      <span matLine>Division</span>
+    </a> -->
+
+    <!-- <a
+      mat-list-item
+      disableRipple
+      role="listitem"
+      [routerLink]="['/supplier-orgs/list']"
+      [routerLinkActive]="['link-active']"
+      *ngIf="isEnabledModule('supplier')"
+    >
+      <mat-icon matListIcon>group_add</mat-icon>
+      <span matLine>Vendors</span>
+    </a>
+    <a
+      mat-list-item
+      disableRipple
+      role="listitem"
+      [routerLink]="['/items/list']"
+      [routerLinkActive]="['link-active']"
+      *ngIf="isEnabledModule('item')"
+    >
+      <mat-icon matListIcon>shopping_cart</mat-icon>
+      <span matLine>Item Master</span>
+    </a>
+    <a
+      mat-list-item
+      disableRipple
+      role="listitem"
+      [routerLink]="['/procurement/rate-contracts/list']"
+      [routerLinkActive]="['link-active']"
+      *ngIf="isEnabledModule('rate-contracts')"
+    >
+      <mat-icon matListIcon>business</mat-icon>
+      <span matLine>Rate Contracts</span>
+    </a>
+
+    <a
+      mat-list-item
+      disableRipple
+      role="listitem"
+      [routerLink]="['/procurement/purchase-requisitions']"
+      [routerLinkActive]="['link-active']"
+      *ngIf="isEnabledModule('purchase-requisitions')"
+    >
+      <mat-icon matListIcon>view_agenda</mat-icon>
+      <span matLine>Purchase Requisitions</span>
+    </a>
+    <a
+      mat-list-item
+      disableRipple
+      role="listitem"
+      [routerLink]="['/procurement/request-for-quotations']"
+      [routerLinkActive]="['link-active']"
+      *ngIf="isEnabledModule('request-for-quotations')"
+    >
+      <mat-icon matListIcon>assessment</mat-icon>
+      <span matLine>Request For Quotations</span>
+    </a>
+    <a
+      mat-list-item
+      disableRipple
+      role="listitem"
+      [routerLink]="['/procurement/quotations/list']"
+      [routerLinkActive]="['link-active']"
+      *ngIf="isEnabledModule('quotations')"
+    >
+      <mat-icon matListIcon>receipt</mat-icon>
+      <span matLine>Quotations</span>
+    </a> -->
+    <!-- <div *appCanRender="'technical-evaluations'"> -->
+    <!-- <a
+      mat-list-item
+      disableRipple
+      role="listitem"
+      [routerLink]="['/procurement/technical/list']"
+      [routerLinkActive]="['link-active']"
+      *ngIf="isEnabledModule('technical-evaluations')"
+    >
+      <mat-icon matListIcon>business</mat-icon>
+      <span matLine>Technical Evaluations</span>
+    </a> -->
+    <!-- </div> -->
+    <!-- <div *appCanRender="'commercial-evaluations'"> -->
+    <!-- <a
+      mat-list-item
+      disableRipple
+      role="listitem"
+      [routerLink]="['/procurement/commercial/list']"
+      [routerLinkActive]="['link-active']"
+      *ngIf="isEnabledModule('commercial-evaluations')"
+    >
+      <mat-icon matListIcon>business</mat-icon>
+      <span matLine>Commercial Evaluations</span>
+    </a> -->
+    <!-- </div> -->
+    <!-- <a
+      mat-list-item
+      disableRipple
+      role="listitem"
+      [routerLink]="['/procurement/purchase-order-requests']"
+      [routerLinkActive]="['link-active']"
+      *ngIf="isEnabledModule('purchase-order-requests')"
+    >
+      <mat-icon matListIcon>view_agenda</mat-icon>
+      <span matLine>Purchase Order Requests</span>
+    </a>
+    <a
+      mat-list-item
+      disableRipple
+      role="listitem"
+      [routerLink]="['/procurement/purchase-orders/poList']"
+      [routerLinkActive]="['link-active']"
+      *ngIf="isEnabledModule('yma-purchase-orders')"
+    >
+      <mat-icon matListIcon>work</mat-icon>
+      <span matLine>Purchase Orders</span>
+    </a>
+    <a
+      mat-list-item
+      disableRipple
+      role="listitem"
+      [routerLink]="['/procurement/purchase-orders/poSchedules']"
+      [routerLinkActive]="['link-active']"
+      *ngIf="!vendorStatus && isEnabledModule('purchase-orders-schedules')"
+    >
+      <mat-icon matListIcon>schedule</mat-icon>
+      <span matLine>Delivery Lots</span>
+    </a>
+    <a
+      mat-list-item
+      disableRipple
+      role="listitem"
+      [routerLink]="['/procurement/logistics/list/0']"
+      [routerLinkActive]="['link-active']"
+      *ngIf="isEnabledModule('logistics')"
+    >
+      <mat-icon matListIcon>local_shipping</mat-icon>
+      <span matLine>Logistics</span>
+    </a>
+
+    <a
+      mat-list-item
+      disableRipple
+      role="listitem"
+      [routerLink]="['/procurement/shipment-notices/inspections/0']"
+      [routerLinkActive]="['link-active']"
+      *ngIf="!vendorStatus && isEnabledModule('inspections')"
+    >
+      <mat-icon matListIcon>find_in_page</mat-icon>
+      <span matLine>Inspections</span>
+    </a>
+    <a
+      mat-list-item
+      disableRipple
+      role="listitem"
+      [routerLink]="['/procurement/logistics/freight-forwarder-requests/list']"
+      [routerLinkActive]="['link-active']"
+      *ngIf="vendorStatus && isEnabledModule('freight-forwarder-requests')"
+    >
+      <mat-icon matListIcon>work</mat-icon>
+      <span matLine>Freight Forwarder Requests</span>
+    </a>
+    <a
+      mat-list-item
+      disableRipple
+      role="listitem"
+      [routerLink]="['/procurement/logistics/work-orders/0']"
+      [routerLinkActive]="['link-active']"
+      *ngIf="isEnabledModule('work-orders')"
+    >
+      <mat-icon matListIcon>list_alt </mat-icon>
+      <span matLine>WorkOrder</span>
+    </a>
+
+    <a
+      mat-list-item
+      disableRipple
+      role="listitem"
+      [routerLink]="['/document-management/doc-stacks/list']"
+      [routerLinkActive]="['link-active']"
+      *ngIf="isEnabledModule('doc-stacks')"
+    >
+      <mat-icon matListIcon>assessment</mat-icon>
+      <span matLine>Invoices</span>
+    </a>
+    <a
+      mat-list-item
+      disableRipple
+      role="listitem"
+      [routerLink]="['/my-approvals/list']"
+      [routerLinkActive]="['link-active']"
+      *ngIf="isEnabledModule('my-approvals')"
+    >
+      <mat-icon matListIcon>thumb_up_alt</mat-icon>
+      <span matLine> My Approvals</span>
+    </a>
+
+    <a
+      mat-list-item
+      disableRipple
+      role="listitem"
+      [routerLink]="['/procurement/sap-quotations']"
+      [routerLinkActive]="['link-active']"
+      *ngIf="isEnabledModule('sap-quotations')"
+    >
+      <mat-icon matListIcon>view_agenda</mat-icon>
+      <span matLine>SAP Quotations</span>
+    </a> -->
+
+    <!-- <a mat-list-item disableRipple role="listitem" [routerLink]="['/procurement/purchase-orders/list']"
+      [routerLinkActive]="['link-active']" *ngIf="isEnabledModule('purchase-orders')">
+      <mat-icon matListIcon>work</mat-icon>
+      <span matLine>Old Purchase Orders</span>
+    </a> -->
+
+    <!-- <a
+    mat-list-item
+    disableRipple
+    role="listitem"
+    [routerLink]="[
+      '/document-management/doc-stacks/list',
+      { outlets: { detail: ['paymentAdviceSlip'] } }
+    ]"
+    [routerLinkActive]="['link-active']"
+    *ngIf="isEnabledModule('paymentAdviceSlip')"
+  >
+    <mat-icon matListIcon>assignment</mat-icon>
+    <span matLine>Payment Advice Slip</span>
+  </a> -->
+
+    <!-- <a
+      mat-list-item
+      disableRipple
+      role="listitem"
+      [routerLink]="['/settings/reports']"
+      [routerLinkActive]="['link-active']"
+      *ngIf="isEnabledModule('reports')"
+    >
+      <mat-icon matListIcon>timeline</mat-icon>
+      <span matLine>Reports</span>
+    </a> -->
+    <!-- <a mat-list-item disableRipple role="listitem" [routerLink]="['/document-management/doc-stacks/vendorReport']"
+    [routerLinkActive]="['link-active']" *ngIf="isEnabledModule('doc-stacks')">
+    <mat-icon matListIcon>view_agenda</mat-icon>
+    <span matLine>Invoices : Vendor Report</span>
+  </a>
+  <a mat-list-item disableRipple role="listitem" [routerLink]="['/document-management/doc-stacks/financeTeamReport']"
+    [routerLinkActive]="['link-active']" *ngIf="isEnabledModule('doc-stacks')">
+    <mat-icon matListIcon>view_agenda</mat-icon>
+    <span matLine>Invoices : Finance Report</span>
+  </a> -->
+    <!-- <a
+      mat-list-item
+      disableRipple
+      role="listitem"
+      [routerLink]="['/procurement/goods-received-notes/list']"
+      [routerLinkActive]="['link-active']"
+      *ngIf="isEnabledModule('grn-module')"
+    >
+      <mat-icon matListIcon>call_received</mat-icon>
+      <span matLine>GRN</span>
+    </a>
+    <a
+      mat-list-item
+      disableRipple
+      role="listitem"
+      [routerLink]="['/procurement/invoice-posts/list']"
+      [routerLinkActive]="['link-active']"
+      *ngIf="isEnabledModule('invoice-posts')"
+    >
+      <mat-icon matListIcon>assessment</mat-icon>
+      <span matLine>Invoice</span>
+    </a>
+    <a
+      mat-list-item
+      disableRipple
+      role="listitem"
+      [routerLink]="['/auctions/list']"
+      [routerLinkActive]="['link-active']"
+      *ngIf="isEnabledModule('auctions')"
+    >
+      <mat-icon matListIcon>gavel</mat-icon>
+      <span matLine>Auctions</span>
+    </a>
+    <a
+      mat-list-item
+      disableRipple
+      role="listitem"
+      [routerLink]="['/inventory/dashboard']"
+      [routerLinkActive]="['link-active']"
+      *ngIf="isEnabledModule('inventory')"
+    >
+      <mat-icon matListIcon>storage</mat-icon>
+      <span matLine>Inventory</span>
+    </a> -->
+    <!-- <a
+    mat-list-item
+    disableRipple
+    role="listitem"
+    [routerLink]="['/settings']"
+    [routerLinkActive]="['link-active']"
+    *ngIf="isBuyer() && hasAdminRole()"
+  >
+    <mat-icon matListIcon>settings</mat-icon>
+    <span matLine>Settings</span>
+  </a> -->
+    <!-- <a
+      mat-list-item
+      disableRipple
+      role="listitem"
+      [routerLink]="['/procurement/punch-out-catalogue/list']"
+      [routerLinkActive]="['link-active']"
+      *ngIf="isEnabledModule('punchout')"
+    >
+      <mat-icon matListIcon>shopping_basket</mat-icon>
+      <span matLine>Catalogue Purchase</span>
+    </a>
+
+    <a
+      mat-list-item
+      disableRipple
+      role="listitem"
+      *ngIf="isEnabledModule('dashboard1')"
+      [routerLink]="['/settings/dashboard']"
+      [routerLinkActive]="['link-active']"
+    >
+      <mat-icon matListIcon>dashboard</mat-icon>
+      <span matLine>Dashboard 1</span>
+    </a>
+    <a
+      mat-list-item
+      disableRipple
+      role="listitem"
+      *ngIf="isEnabledModule('dashboard2')"
+      [routerLink]="['/settings/dashboard2']"
+      [routerLinkActive]="['link-active']"
+    >
+      <mat-icon matListIcon>dashboard</mat-icon>
+      <span matLine>Dashboard 2</span>
+    </a>
+    <a
+      mat-list-item
+      disableRipple
+      role="listitem"
+      *ngIf="isEnabledModule('dashboard3')"
+      [routerLink]="['/settings/dashboard3']"
+      [routerLinkActive]="['link-active']"
+    >
+      <mat-icon matListIcon>dashboard</mat-icon>
+      <span matLine>Buyer Manager Dashboard</span>
+    </a>
+    <a
+      mat-list-item
+      disableRipple
+      role="listitem"
+      [routerLink]="['/settings/dashboard4']"
+      *ngIf="isEnabledModule('dashboard4')"
+      [routerLinkActive]="['link-active']"
+    >
+      <mat-icon matListIcon>dashboard</mat-icon>
+      <span matLine>Buyer Dashboard</span>
+    </a>
+  </ng-container>
+
+  <ng-container *ngIf="isHelpDesk">
+    <a
+      mat-list-item
+      disableRipple
+      role="listitem"
+      [routerLink]="['/help-desk/tickets/list']"
+      [routerLinkActive]="['link-active']"
+      *ngIf="isEnabledModule('help-desk')"
+    >
+      <mat-icon matListIcon>help</mat-icon>
+      <span matLine>Facility Help Desk</span>
+    </a> -->
+  </ng-container>
+</mat-nav-list>

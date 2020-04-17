@@ -1,0 +1,32 @@
+@import '../../../../styles.scss';
+
+.mat-nav-list {
+  margin-bottom: 4rem;
+}
+
+.mat-list-item {
+  height: 35px !important;
+  font-size: 13px;
+  letter-spacing: 0.3px;
+  width: auto !important;
+  margin: 10px 5px 0px 0px;
+  border-radius: 0 50px 50px 0;
+
+  .mat-list-item:hover {
+    background-color: rgba(200, 200, 200, .2);
+    box-shadow: none;
+  }
+}
+
+.mat-nav-list {
+  .link-active {
+    color: color(primary);
+    background-color: rgba(66, 133, 244, 0.149);
+    border-radius: 0 50px 50px 0;
+    font-weight: 500;
+  }
+
+  .link-active:hover {
+    text-decoration: none;
+  }
+}

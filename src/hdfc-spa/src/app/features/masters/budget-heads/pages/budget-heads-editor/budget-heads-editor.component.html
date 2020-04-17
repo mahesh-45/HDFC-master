@@ -1,0 +1,72 @@
+<section *ngIf="budgetHeadForm" class="container">
+  <form [formGroup]="budgetHeadForm" (ngSubmit)="onSubmit(budgetHeadForm.value)">
+    <div class="shell-wrapper">
+      <div class="shell-wrapper-header">
+        <h4 class="shell-header-title">{{
+          f.uid.value === ''
+          ? 'Create Budget Head'
+          : 'Update Budget Head'
+          }}</h4>
+        <button type="button" mat-icon-button (click)="close()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="shell-wrapper-container">
+        <form [formGroup]="budgetHeadForm">
+          <div class="row">
+            <mat-form-field class="col-4">
+              <input matInput placeholder="Name" formControlName="name" required>
+              <mat-error>
+                Please Provide Budget Head Name.
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-4">
+              <input matInput placeholder="Code" formControlName="code" required>
+              <mat-error>
+                Please Provide Budget Head Code
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-4" hidden>
+              <mat-select placeholder="Select CostCode" formControlName="costCodeId">
+                <mat-option *ngFor="let CostCode of costCodes" [value]="CostCode.value">
+                  {{CostCode.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="col-4" hidden>
+              <mat-select placeholder="Select Department" formControlName="departmentId">
+                <mat-option *ngFor="let dept of Departments" [value]="dept.value">
+                  {{dept.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <div class="col-4">
+              <!-- <mat-slide-toggle class="mt-2" formControlName="status">
+                {{ budgetHeadForm.get('status').value ? 'Active' : 'InActive' }}
+              </mat-slide-toggle> -->
+
+              <mat-radio-group formControlName="status" aria-label="Select an option" class="d-block">
+                <mat-radio-button value="InActive">In Active</mat-radio-button>
+                <mat-radio-button value="Active">Active</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+        </form>
+      </div>
+
+
+      <div class="shell-wrapper-footer">
+        <button mat-raised-button color="primary" type="submit" [disabled]="!budgetHeadForm.valid">
+          {{
+            f.uid.value === ''
+          ? 'Create'
+          : 'Update'
+          }}
+        </button>
+        <button mat-stroked-button color="primary" [routerLink]="[ '/masters/budget-heads']">Cancel</button>
+      </div>
+    </div>
+  </form>
+</section>
